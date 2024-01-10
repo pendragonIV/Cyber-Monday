@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
-using UnityEngine.UI;
+using System.Collections;
+using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
@@ -27,7 +25,7 @@ public class MainMenu : MonoBehaviour
         gameLogo.GetComponent<CanvasGroup>().alpha = 0f;
         gameLogo.GetComponent<CanvasGroup>().DOFade(1, 2f).SetUpdate(true);
         //gameLogo.GetComponent<Image>().DOColor(aimColor, 1.5f).SetEase(Ease.InOutBounce).SetUpdate(true).SetLoops(-1, LoopType.Yoyo);
-        
+
     }
 
     public void PopupTutorialForPlayer()
@@ -44,9 +42,9 @@ public class MainMenu : MonoBehaviour
         StartCoroutine(SLideUIOutAndFade(tutorPanel.GetComponent<CanvasGroup>(), guideLine.GetComponent<RectTransform>()));
         sceneComponents.gameObject.SetActive(true);
         playBtn.gameObject.SetActive(true);
-    }   
+    }
 
-    private void SlideAndFadeUIIn(CanvasGroup canvasGroup ,RectTransform rectTransform)
+    private void SlideAndFadeUIIn(CanvasGroup canvasGroup, RectTransform rectTransform)
     {
         canvasGroup.alpha = 0f;
         canvasGroup.DOFade(1, .3f).SetUpdate(true);

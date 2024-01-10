@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     #region Movement variables
     [SerializeField]
     private Vector2 movementDirection;
-    private bool isMoving = false;  
+    private bool isMoving = false;
     #endregion
 
     #region Animation
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("Goal"))
         {
-            Debug.Log("Win");   
+            Debug.Log("Win");
             GameManager.instance.PlayerWinThisLevel();
             Destroy(collision.gameObject);
         }
@@ -49,13 +49,13 @@ public class Player : MonoBehaviour
             Vector3Int dir = Vector3Int.FloorToInt(movementDirection);
             Vector3Int nextCellPos = cellPos + dir;
 
-            List<GameObject> nexts = CheckAllTheNextPuzzleBlock(cellPos,dir);
+            List<GameObject> nexts = CheckAllTheNextPuzzleBlock(cellPos, dir);
 
             if (nexts != null && nexts.Count > 1)
             {
                 return;
             }
-            else if(nexts != null)
+            else if (nexts != null)
             {
                 if (GridCellManager.instance.IsThisAreaCanMoveTo(nextCellPos))
                 {
@@ -99,14 +99,14 @@ public class Player : MonoBehaviour
             {
                 pushingBlock.GetComponent<Block>().SetThisBlockToGround();
             }
-        }); 
+        });
     }
 
     #endregion
 
     #region Checking
 
-    private List<GameObject> CheckAllTheNextPuzzleBlock(Vector3Int start ,Vector3Int dir)
+    private List<GameObject> CheckAllTheNextPuzzleBlock(Vector3Int start, Vector3Int dir)
     {
         List<GameObject> nexts = new List<GameObject>();
         Vector3Int checkCell = start + dir;
@@ -116,8 +116,8 @@ public class Player : MonoBehaviour
         {
             nexts = next.GetComponent<Block>().CheckIfThereIsBlockNextToThisBlock(next.gameObject, dir);
         }
-        
-        if(nexts.Count > 0)
+
+        if (nexts.Count > 0)
         {
             return nexts;
         }

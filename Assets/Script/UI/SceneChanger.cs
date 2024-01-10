@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -43,7 +42,7 @@ public class SceneChanger : MonoBehaviour
     public void ToNextChallenge()
     {
         StopAllCoroutines();
-        if(LevelManager.instance.currentLevelIndex < LevelManager.instance.levelData.GiveAllLevelAssigned().Count - 1)
+        if (LevelManager.instance.currentLevelIndex < LevelManager.instance.levelData.GiveAllLevelAssigned().Count - 1)
         {
             LevelManager.instance.currentLevelIndex++;
             StartCoroutine(ChangeToAnotherScene(GAME));

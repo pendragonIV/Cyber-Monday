@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +9,7 @@ public class GameScene : MonoBehaviour
     [SerializeField]
     private Transform winPanel;
     [SerializeField]
-    private Transform losePanel;    
+    private Transform losePanel;
     [SerializeField]
     private Button replayButton;
     [SerializeField]
@@ -20,7 +19,7 @@ public class GameScene : MonoBehaviour
 
     [SerializeField]
     private Transform navWin;
-    [SerializeField] 
+    [SerializeField]
     private Transform winScreen;
     [SerializeField]
     private Text moveLeft;

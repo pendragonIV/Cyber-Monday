@@ -1430,7 +1430,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 229126582}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: ChangeToMenu
+        m_MethodName: ToHomeScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1949,7 +1949,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 229126582}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: ChangeToGameScene
+        m_MethodName: ToPlaystateScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2530,7 +2530,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 229126582}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: ChangeToGameScene
+        m_MethodName: ToPlaystateScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2935,7 +2935,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 229126582}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: ChangeToMenu
+        m_MethodName: ToHomeScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3319,7 +3319,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 229126582}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: ChangeToGameScene
+        m_MethodName: ToPlaystateScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3522,7 +3522,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 229126582}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: ChangeToNextLevel
+        m_MethodName: ToNextChallenge
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3747,7 +3747,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 229126582}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: ChangeToMenu
+        m_MethodName: ToHomeScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

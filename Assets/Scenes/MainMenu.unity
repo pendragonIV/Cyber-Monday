@@ -369,7 +369,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 519420030}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: ChangeToLevels
+        m_MethodName: ToLevelChossingState
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1030,7 +1030,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5038963627638812288}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: ShowTutorPanel
+        m_MethodName: PopupTutorialForPlayer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1181,7 +1181,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5038963627638812288}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: HideTutorPanel
+        m_MethodName: HideTutorFromPlayer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

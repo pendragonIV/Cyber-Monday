@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using static UnityEditor.PlayerSettings;
 
 public class Block : MonoBehaviour
 {
@@ -69,7 +68,7 @@ public class Block : MonoBehaviour
     {
         List<GameObject> nexts = new List<GameObject>();
         nexts.Add(objToCheck);
-        foreach(Transform child in objToCheck.transform)
+        foreach (Transform child in objToCheck.transform)
         {
             Vector3Int cellPos = GridCellManager.instance.GetCellPositionOfGivenPosition(child.position);
             Vector3Int nextCell = cellPos + dir;

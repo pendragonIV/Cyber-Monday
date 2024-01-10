@@ -8,7 +8,7 @@ public class GridCellManager : MonoBehaviour
 
     [SerializeField]
     private Tilemap tileMap;
-    [SerializeField] 
+    [SerializeField]
     private List<Vector3> locations = new List<Vector3>();
     [SerializeField]
     private List<Vector3Int> placedBlock = new List<Vector3Int>();
@@ -26,7 +26,7 @@ public class GridCellManager : MonoBehaviour
     }
     public void SetMapForThisManager(Tilemap tilemap)
     {
-        if(tilemap != null)
+        if (tilemap != null)
         {
             this.tileMap = tilemap;
         }
