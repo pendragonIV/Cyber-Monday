@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -68,7 +69,7 @@ public class LevelHolder : MonoBehaviour, IPointerClickHandler
 
     private IEnumerator ChangeToAnotherScene(string sceneName)
     {
-
+        DOTween.KillAll();
         //Optional: Add animation here
         LevelScene.instance.PlayChangeScene();
         yield return new WaitForSecondsRealtime(1f);

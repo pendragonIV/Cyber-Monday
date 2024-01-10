@@ -67,5 +67,8 @@ public class LevelScene : MonoBehaviour
         commingSoonLevel.GetComponent<CanvasGroup>().DOFade(1, 0.5f).SetEase(Ease.InSine).SetDelay(LevelManager.instance.levelData.GiveAllLevelAssigned().Count * 0.2f);
 
     }
-
+    private void OnApplicationQuit()
+    {
+        DOTween.KillAll();
+    }
 }

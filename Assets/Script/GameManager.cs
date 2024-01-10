@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -23,7 +24,6 @@ public class GameManager : MonoBehaviour
     private Level currentLevelData;
     private bool isGameWin = false;
     private bool isGameLose = false;
-    private bool isGamePause = false;
     private int moveLeft;
     #endregion
 

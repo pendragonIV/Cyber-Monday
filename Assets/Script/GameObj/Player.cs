@@ -30,7 +30,6 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("Goal"))
         {
-            Debug.Log("Win");
             GameManager.instance.PlayerWinThisLevel();
             Destroy(collision.gameObject);
         }

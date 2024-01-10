@@ -67,4 +67,8 @@ public class GameScene : MonoBehaviour
         rectTransform.localScale = Vector3.zero;
         rectTransform.DOScale(1, .3f).SetEase(Ease.OutBack).SetUpdate(true);
     }
+    private void OnApplicationQuit()
+    {
+        DOTween.KillAll();
+    }
 }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -56,7 +57,7 @@ public class SceneChanger : MonoBehaviour
 
     private IEnumerator ChangeToAnotherScene(string sceneName)
     {
-
+        DOTween.KillAll();
         //Optional: Add animation here
         sceneTransition.GetComponent<Animator>().Play("SceneTransitionReverse");
         yield return new WaitForSecondsRealtime(1f);
