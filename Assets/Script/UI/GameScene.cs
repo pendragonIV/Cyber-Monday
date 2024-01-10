@@ -24,9 +24,12 @@ public class GameScene : MonoBehaviour
     private Transform winScreen;
     [SerializeField]
     private Text moveLeft;
+    [SerializeField]
+    private Text levelName;
 
     private void Start()
     {
+        levelName.text = "LEVEL " + (LevelManager.instance.currentLevelIndex + 1).ToString();
         bg.DOShakePosition(10f, 2f, 0, 0, false, true).SetEase(Ease.InSine).SetLoops(-1);
     }
 
