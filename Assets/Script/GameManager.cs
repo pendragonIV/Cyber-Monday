@@ -30,40 +30,40 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        currentLevelData = LevelManager.instance.levelData.GetLevelAt(LevelManager.instance.currentLevelIndex);
+        currentLevelData = LevelManager.instance.levelData.GetTheLevelAtGivenIndex(LevelManager.instance.currentLevelIndex);
         GameObject map = Instantiate(currentLevelData.map);
         moveLeft = currentLevelData.moveLimit;
         gameScene.UpdateMoveLeft(moveLeft);
         Time.timeScale = 1;
     }
 
-    public void Win()
+    public void PlayerWinThisLevel()
     {
         if (isGameWin || isGameLose)
         {
             return;
         }
-        LevelManager.instance.levelData.SetLevelData(LevelManager.instance.currentLevelIndex, true, true);
-        if (LevelManager.instance.levelData.GetLevels().Count > LevelManager.instance.currentLevelIndex + 1)
+        LevelManager.instance.levelData.ReSetGivenLevelData(LevelManager.instance.currentLevelIndex, true, true);
+        if (LevelManager.instance.levelData.GiveAllLevelAssigned().Count > LevelManager.instance.currentLevelIndex + 1)
         {
-            if (LevelManager.instance.levelData.GetLevelAt(LevelManager.instance.currentLevelIndex + 1).isPlayable == false)
+            if (LevelManager.instance.levelData.GetTheLevelAtGivenIndex(LevelManager.instance.currentLevelIndex + 1).isPlayable == false)
             {
-                LevelManager.instance.levelData.SetLevelData(LevelManager.instance.currentLevelIndex + 1, true, false);
+                LevelManager.instance.levelData.ReSetGivenLevelData(LevelManager.instance.currentLevelIndex + 1, true, false);
             }
         }
         isGameWin = true;
 
-        gameScene.ShowWinPanel();
-        LevelManager.instance.levelData.SaveDataJSON();
+        gameScene.PopupWinPanelGameScene();
+        LevelManager.instance.levelData.SaveThisDataToJsonFile();
     }
 
-    public void DecreaseMove()
+    public void DecreaseMovementAndShowUI()
     {
         moveLeft--;
         gameScene.UpdateMoveLeft(moveLeft);
     }
 
-    public void CheckMove()
+    public void CheckMoveLeftToCheckLose()
     {
         if (moveLeft <= 0)
         {
@@ -71,41 +71,24 @@ public class GameManager : MonoBehaviour
             {
                 return;
             }
-            Lose();
+            PlayerLoseThisLevelAndShowUI();
         }
     }
 
-    public void Lose()
+    public void PlayerLoseThisLevelAndShowUI()
     {
         isGameLose = true;
-        gameScene.ShowLosePanel();
+        gameScene.PopupLosePanelGameScene();
     }
 
-    public bool IsGameWin()
+    public bool IsThisGameFinalOrWin()
     {
         return isGameWin;
     }
 
-    public bool IsGameLose()
+    public bool IsThisGameFinalOrLose()
     {
         return isGameLose;
-    }
-
-    public void PauseGame()
-    {
-        isGamePause = true;
-        Time.timeScale = 0;
-    }
-
-    public void ResumeGame()
-    {
-        isGamePause = false;
-        Time.timeScale = 1;
-    }
-
-    public bool IsGamePause()
-    {
-        return isGamePause;
     }
 }
 

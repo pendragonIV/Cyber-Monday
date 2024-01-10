@@ -15,10 +15,10 @@ public class Block : MonoBehaviour
 
     private void Start()
     {
-        SetDefaultColor();
+        SetRamdomColorToThisPuzzleBlock();
     }
 
-    private void SetDefaultColor()
+    private void SetRamdomColorToThisPuzzleBlock()
     {
         int random = Random.Range(0, defaultColors.Length);
         foreach (Transform child in transform)
@@ -27,7 +27,7 @@ public class Block : MonoBehaviour
         }
     }
 
-    public void SetStaticBlock()
+    public void SetThisBlockToGround()
     {
         this.GetComponent<SortingGroup>().sortingOrder = 0;
         foreach (Collider2D collider in colliders)
@@ -36,27 +36,27 @@ public class Block : MonoBehaviour
         }
         foreach (Transform child in transform)
         {
-            child.GetComponent<CenterCell>().SetCenterCell();
-            Vector3Int cellPos = GridCellManager.instance.GetObjCell(child.position);
-            GridCellManager.instance.SetPlacedBlock(cellPos);
+            child.GetComponent<CenterCell>().PutObjectToCenterCell();
+            Vector3Int cellPos = GridCellManager.instance.GetCellPositionOfGivenPosition(child.position);
+            GridCellManager.instance.SetPlacedBlockSoPlayerCanMove(cellPos);
             child.GetComponent<SpriteRenderer>().color = disabledColor;
         }
     }
 
-    public void CenterBlock()
+    public void CenterAllChildInThisBlock()
     {
         foreach (Transform child in transform)
         {
-            child.GetComponent<CenterCell>().SetCenterCell();
+            child.GetComponent<CenterCell>().PutObjectToCenterCell();
         }
     }
 
-    public bool IsBlockCanPlaced(Vector3Int dir)
+    public bool CheckIfThisBLockCanFullyPlaced(Vector3Int dir)
     {
         foreach (Transform child in transform)
         {
-            Vector3Int cellPos = GridCellManager.instance.GetObjCell(child.position);
-            if (GridCellManager.instance.IsPlaceableArea(cellPos))
+            Vector3Int cellPos = GridCellManager.instance.GetCellPositionOfGivenPosition(child.position);
+            if (GridCellManager.instance.IsThisAreaCanMoveTo(cellPos))
             {
                 return false;
             }
@@ -65,15 +65,15 @@ public class Block : MonoBehaviour
     }
 
 
-    public List<GameObject> CheckNeigorBlock(GameObject objToCheck, Vector3Int dir)
+    public List<GameObject> CheckIfThereIsBlockNextToThisBlock(GameObject objToCheck, Vector3Int dir)
     {
         List<GameObject> nexts = new List<GameObject>();
         nexts.Add(objToCheck);
         foreach(Transform child in objToCheck.transform)
         {
-            Vector3Int cellPos = GridCellManager.instance.GetObjCell(child.position);
+            Vector3Int cellPos = GridCellManager.instance.GetCellPositionOfGivenPosition(child.position);
             Vector3Int nextCell = cellPos + dir;
-            Vector3 nextPos = GridCellManager.instance.PositonToMove(nextCell);
+            Vector3 nextPos = GridCellManager.instance.GetWordPositionOfGivenCellPosition(nextCell);
             Collider2D next = Physics2D.OverlapPoint(nextPos, LayerMask.GetMask("Block"));
             if (next)
             {

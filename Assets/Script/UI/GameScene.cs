@@ -38,7 +38,7 @@ public class GameScene : MonoBehaviour
         this.moveLeft.text = moveLeft.ToString();
     }
 
-    public void ShowWinPanel()
+    public void PopupWinPanelGameScene()
     {
         overlayPanel.gameObject.SetActive(true);
         winPanel.gameObject.SetActive(true);
@@ -46,21 +46,21 @@ public class GameScene : MonoBehaviour
         {
             navWin.gameObject.SetActive(true);
         });
-        FadeIn(overlayPanel.GetComponent<CanvasGroup>(), winPanel.GetComponent<RectTransform>());
+        FadePanelInScene(overlayPanel.GetComponent<CanvasGroup>(), winPanel.GetComponent<RectTransform>());
         homeButton.interactable = false;
         replayButton.interactable = false;
     }
 
-    public void ShowLosePanel()
+    public void PopupLosePanelGameScene()
     {
         overlayPanel.gameObject.SetActive(true);
         losePanel.gameObject.SetActive(true);
-        FadeIn(overlayPanel.GetComponent<CanvasGroup>(), losePanel.GetComponent<RectTransform>());
+        FadePanelInScene(overlayPanel.GetComponent<CanvasGroup>(), losePanel.GetComponent<RectTransform>());
         homeButton.interactable = false;
         replayButton.interactable = false;
     }
 
-    private void FadeIn(CanvasGroup canvasGroup, RectTransform rectTransform)
+    private void FadePanelInScene(CanvasGroup canvasGroup, RectTransform rectTransform)
     {
         canvasGroup.alpha = 0f;
         canvasGroup.DOFade(1, .3f).SetUpdate(true);

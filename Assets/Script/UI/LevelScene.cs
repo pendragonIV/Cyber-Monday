@@ -30,7 +30,7 @@ public class LevelScene : MonoBehaviour
 
     void Start()
     {
-        PrepareLevels();
+        PrepareLevelsForThisScene();
         bg.DOShakePosition(10f, 2f, 0, 0, false, true).SetEase(Ease.InSine).SetLoops(-1);
     }
     public void PlayChangeScene()
@@ -38,33 +38,33 @@ public class LevelScene : MonoBehaviour
         sceneTransition.GetComponent<Animator>().Play("SceneTransitionReverse");
     }
 
-    private void PrepareLevels()
+    private void PrepareLevelsForThisScene()
     {
-        for (int i = 0; i < LevelManager.instance.levelData.GetLevels().Count; i++)
+        for (int i = 0; i < LevelManager.instance.levelData.GiveAllLevelAssigned().Count; i++)
         {
             Transform holder = Instantiate(levelHolderPrefab, levelsContainer);
             holder.name = i.ToString();
             holder.GetComponent<LevelHolder>().SetLevelIndex(i);
-            Level level = LevelManager.instance.levelData.GetLevelAt(i);
-            if (LevelManager.instance.levelData.GetLevelAt(i).isPlayable)
+            Level level = LevelManager.instance.levelData.GetTheLevelAtGivenIndex(i);
+            if (LevelManager.instance.levelData.GetTheLevelAtGivenIndex(i).isPlayable)
             {
-                holder.GetComponent<LevelHolder>().EnableHolder();
+                holder.GetComponent<LevelHolder>().EnableLevelClickAndUI();
             }
             else
             {
-                holder.GetComponent<LevelHolder>().DisableHolder();
+                holder.GetComponent<LevelHolder>().DisableLevelClickAndUI();
             }
 
-            if (LevelManager.instance.levelData.GetLevelAt(i).isCompleted)
+            if (LevelManager.instance.levelData.GetTheLevelAtGivenIndex(i).isCompleted)
             {
-                holder.GetComponent<LevelHolder>().CompletedLevel();
+                holder.GetComponent<LevelHolder>().SetCompletedLevelUI();
             }
 
             holder.GetComponent<CanvasGroup>().alpha = 0;
             holder.GetComponent<CanvasGroup>().DOFade(1, 0.5f).SetEase(Ease.InSine).SetDelay(i * 0.2f);
         }
         commingSoonLevel.GetComponent<CanvasGroup>().alpha = 0;
-        commingSoonLevel.GetComponent<CanvasGroup>().DOFade(1, 0.5f).SetEase(Ease.InSine).SetDelay(LevelManager.instance.levelData.GetLevels().Count * 0.2f);
+        commingSoonLevel.GetComponent<CanvasGroup>().DOFade(1, 0.5f).SetEase(Ease.InSine).SetDelay(LevelManager.instance.levelData.GiveAllLevelAssigned().Count * 0.2f);
 
     }
 

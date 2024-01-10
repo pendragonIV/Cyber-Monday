@@ -19,11 +19,11 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.instance.IsGameLose() || GameManager.instance.IsGameWin() || isMoving)
+        if (GameManager.instance.IsThisGameFinalOrLose() || GameManager.instance.IsThisGameFinalOrWin() || isMoving)
         {
             return;
         }
-        MovementManager();
+        PlayerMovementControl();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -31,25 +31,25 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("Goal"))
         {
             Debug.Log("Win");   
-            GameManager.instance.Win();
+            GameManager.instance.PlayerWinThisLevel();
             Destroy(collision.gameObject);
         }
     }
 
     #region Movement
 
-    private void MovementManager()
+    private void PlayerMovementControl()
     {
         if (movementDirection != Vector2.zero
-            && !GameManager.instance.IsGameLose()
-            && !GameManager.instance.IsGameWin()
+            && !GameManager.instance.IsThisGameFinalOrLose()
+            && !GameManager.instance.IsThisGameFinalOrWin()
             && !isMoving)
         {
-            Vector3Int cellPos = GridCellManager.instance.GetObjCell(transform.position);
+            Vector3Int cellPos = GridCellManager.instance.GetCellPositionOfGivenPosition(transform.position);
             Vector3Int dir = Vector3Int.FloorToInt(movementDirection);
             Vector3Int nextCellPos = cellPos + dir;
 
-            List<GameObject> nexts = CheckNextBlock(cellPos,dir);
+            List<GameObject> nexts = CheckAllTheNextPuzzleBlock(cellPos,dir);
 
             if (nexts != null && nexts.Count > 1)
             {
@@ -57,47 +57,47 @@ public class Player : MonoBehaviour
             }
             else if(nexts != null)
             {
-                if (GridCellManager.instance.IsPlaceableArea(nextCellPos))
+                if (GridCellManager.instance.IsThisAreaCanMoveTo(nextCellPos))
                 {
                     foreach (GameObject next in nexts)
                     {
-                        Push(next, dir);
+                        PushingThePuzzleBlockToSpecificPosition(next, dir);
                     }
                 }
             }
 
-            Move(nextCellPos);
+            MovePlayerToSpecificPosition(nextCellPos);
         }
     }
 
-    private void Move(Vector3Int nextCellPos)
+    private void MovePlayerToSpecificPosition(Vector3Int nextCellPos)
     {
-        if (GridCellManager.instance.IsPlaceableArea(nextCellPos))
+        if (GridCellManager.instance.IsThisAreaCanMoveTo(nextCellPos))
         {
-            PlayAnimation();
+            PlayPlayerJumpAndMoveAnimation();
             isMoving = true;
-            GameManager.instance.DecreaseMove();
-            Vector3 moveto = GridCellManager.instance.PositonToMove(nextCellPos);
+            GameManager.instance.DecreaseMovementAndShowUI();
+            Vector3 moveto = GridCellManager.instance.GetWordPositionOfGivenCellPosition(nextCellPos);
             this.transform.DOMove(moveto, 0.5f).SetEase(Ease.Linear).SetDelay(MOVE_DELAY).OnComplete(() =>
             {
                 isMoving = false;
-                GameManager.instance.CheckMove();
+                GameManager.instance.CheckMoveLeftToCheckLose();
             });
         }
     }
 
-    private void Push(GameObject pushingBlock, Vector3Int dir)
+    private void PushingThePuzzleBlockToSpecificPosition(GameObject pushingBlock, Vector3Int dir)
     {
-        Vector3Int cellPos = GridCellManager.instance.GetObjCell(pushingBlock.transform.position);
+        Vector3Int cellPos = GridCellManager.instance.GetCellPositionOfGivenPosition(pushingBlock.transform.position);
         Vector3Int nextCell = cellPos + dir;
 
-        pushingBlock.transform.DOMove(GridCellManager.instance.PositonToMove(nextCell), 0.5f).SetEase(Ease.Linear).SetDelay(MOVE_DELAY).OnComplete(() =>
+        pushingBlock.transform.DOMove(GridCellManager.instance.GetWordPositionOfGivenCellPosition(nextCell), 0.5f).SetEase(Ease.Linear).SetDelay(MOVE_DELAY).OnComplete(() =>
         {
             Block block = pushingBlock.GetComponent<Block>();
-            block.CenterBlock();
-            if (block.IsBlockCanPlaced(dir))
+            block.CenterAllChildInThisBlock();
+            if (block.CheckIfThisBLockCanFullyPlaced(dir))
             {
-                pushingBlock.GetComponent<Block>().SetStaticBlock();
+                pushingBlock.GetComponent<Block>().SetThisBlockToGround();
             }
         }); 
     }
@@ -106,15 +106,15 @@ public class Player : MonoBehaviour
 
     #region Checking
 
-    private List<GameObject> CheckNextBlock(Vector3Int start ,Vector3Int dir)
+    private List<GameObject> CheckAllTheNextPuzzleBlock(Vector3Int start ,Vector3Int dir)
     {
         List<GameObject> nexts = new List<GameObject>();
         Vector3Int checkCell = start + dir;
-        Vector3 checkPos = GridCellManager.instance.PositonToMove(checkCell);
+        Vector3 checkPos = GridCellManager.instance.GetWordPositionOfGivenCellPosition(checkCell);
         Collider2D next = Physics2D.OverlapPoint(checkPos, LayerMask.GetMask("Block"));
         if (next)
         {
-            nexts = next.GetComponent<Block>().CheckNeigorBlock(next.gameObject, dir);
+            nexts = next.GetComponent<Block>().CheckIfThereIsBlockNextToThisBlock(next.gameObject, dir);
         }
         
         if(nexts.Count > 0)
@@ -127,7 +127,7 @@ public class Player : MonoBehaviour
 
     #endregion
 
-    private void PlayAnimation()
+    private void PlayPlayerJumpAndMoveAnimation()
     {
         if (animator != null)
         {

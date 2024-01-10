@@ -14,48 +14,48 @@ public class SceneChanger : MonoBehaviour
 
     private void Start()
     {
-        PlayTransition();
+        ActiveSceneTransitionForScene();
     }
 
-    public void PlayTransition()
+    public void ActiveSceneTransitionForScene()
     {
         sceneTransition.GetComponent<Animator>().Play("SceneTransition");
     }
 
-    public void ChangeToMenu()
+    public void ToHomeScene()
     {
         StopAllCoroutines();
-        StartCoroutine(ChangeScene(MENU));
+        StartCoroutine(ChangeToAnotherScene(MENU));
     }
 
-    public void ChangeToGameScene()
+    public void ToPlaystateScene()
     {
         StopAllCoroutines();
-        StartCoroutine(ChangeScene(GAME));
+        StartCoroutine(ChangeToAnotherScene(GAME));
     }
 
-    public void ChangeToLevels()
+    public void ToLevelChossingState()
     {
         StopAllCoroutines();
-        StartCoroutine(ChangeScene(LEVEL_CHOOSE));
+        StartCoroutine(ChangeToAnotherScene(LEVEL_CHOOSE));
     }
 
-    public void ChangeToNextLevel()
+    public void ToNextChallenge()
     {
         StopAllCoroutines();
-        if(LevelManager.instance.currentLevelIndex < LevelManager.instance.levelData.GetLevels().Count - 1)
+        if(LevelManager.instance.currentLevelIndex < LevelManager.instance.levelData.GiveAllLevelAssigned().Count - 1)
         {
             LevelManager.instance.currentLevelIndex++;
-            StartCoroutine(ChangeScene(GAME));
+            StartCoroutine(ChangeToAnotherScene(GAME));
         }
         else
         {
-            StartCoroutine(ChangeScene(LEVEL_CHOOSE));
+            StartCoroutine(ChangeToAnotherScene(LEVEL_CHOOSE));
         }
     }
 
 
-    private IEnumerator ChangeScene(string sceneName)
+    private IEnumerator ChangeToAnotherScene(string sceneName)
     {
 
         //Optional: Add animation here

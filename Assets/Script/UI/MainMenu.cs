@@ -30,23 +30,23 @@ public class MainMenu : MonoBehaviour
         
     }
 
-    public void ShowTutorPanel()
+    public void PopupTutorialForPlayer()
     {
         tutorPanel.gameObject.SetActive(true);
         guideLine.gameObject.SetActive(true);
-        FadeIn(tutorPanel.GetComponent<CanvasGroup>(), guideLine.GetComponent<RectTransform>());
+        SlideAndFadeUIIn(tutorPanel.GetComponent<CanvasGroup>(), guideLine.GetComponent<RectTransform>());
         sceneComponents.gameObject.SetActive(false);
         playBtn.gameObject.SetActive(false);
     }
 
-    public void HideTutorPanel()
+    public void HideTutorFromPlayer()
     {
-        StartCoroutine(FadeOut(tutorPanel.GetComponent<CanvasGroup>(), guideLine.GetComponent<RectTransform>()));
+        StartCoroutine(SLideUIOutAndFade(tutorPanel.GetComponent<CanvasGroup>(), guideLine.GetComponent<RectTransform>()));
         sceneComponents.gameObject.SetActive(true);
         playBtn.gameObject.SetActive(true);
     }   
 
-    private void FadeIn(CanvasGroup canvasGroup ,RectTransform rectTransform)
+    private void SlideAndFadeUIIn(CanvasGroup canvasGroup ,RectTransform rectTransform)
     {
         canvasGroup.alpha = 0f;
         canvasGroup.DOFade(1, .3f).SetUpdate(true);
@@ -55,7 +55,7 @@ public class MainMenu : MonoBehaviour
         rectTransform.DOAnchorPos(new Vector2(0, 0), .3f, false).SetEase(Ease.OutQuint).SetUpdate(true);
     }
 
-    private IEnumerator FadeOut(CanvasGroup canvasGroup, RectTransform rectTransform)
+    private IEnumerator SLideUIOutAndFade(CanvasGroup canvasGroup, RectTransform rectTransform)
     {
         canvasGroup.alpha = 1f;
         canvasGroup.DOFade(0, .3f).SetUpdate(true);

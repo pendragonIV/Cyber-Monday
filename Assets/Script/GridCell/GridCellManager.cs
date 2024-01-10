@@ -24,7 +24,7 @@ public class GridCellManager : MonoBehaviour
             instance = this;
         }
     }
-    public void SetTileMap(Tilemap tilemap)
+    public void SetMapForThisManager(Tilemap tilemap)
     {
         if(tilemap != null)
         {
@@ -32,32 +32,12 @@ public class GridCellManager : MonoBehaviour
         }
     }
 
-    private void GetTiles()
-    {
-        for (int x = tileMap.cellBounds.xMin; x < tileMap.cellBounds.xMax; x++)
-        {
-            for (int y = tileMap.cellBounds.yMin; y < tileMap.cellBounds.yMax; y++)
-            {
-                Vector3Int localLocation = new Vector3Int(
-                    x: x,
-                    y: y,
-                    z: 0);
-
-                Vector3 location = tileMap.GetCellCenterWorld(localLocation);
-                if (tileMap.HasTile(localLocation))
-                {
-                    locations.Add(location);
-                }
-            }
-        }
-    }
-
-    public void SetPlacedBlock(Vector3Int cellPos)
+    public void SetPlacedBlockSoPlayerCanMove(Vector3Int cellPos)
     {
         placedBlock.Add(cellPos);
     }
 
-    public bool IsPlaceableArea(Vector3Int cellPos)
+    public bool IsThisAreaCanMoveTo(Vector3Int cellPos)
     {
         if (tileMap.GetTile(cellPos) == null && !placedBlock.Contains(cellPos))
         {
@@ -66,13 +46,13 @@ public class GridCellManager : MonoBehaviour
         return true;
     }
 
-    public Vector3Int GetObjCell(Vector3 position)
+    public Vector3Int GetCellPositionOfGivenPosition(Vector3 position)
     {
         Vector3Int cellPosition = tileMap.WorldToCell(position);
         return cellPosition;
     }
 
-    public Vector3 PositonToMove(Vector3Int cellPosition)
+    public Vector3 GetWordPositionOfGivenCellPosition(Vector3Int cellPosition)
     {
         return tileMap.GetCellCenterWorld(cellPosition);
     }

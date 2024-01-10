@@ -37,38 +37,37 @@ public class LevelHolder : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         LevelManager.instance.currentLevelIndex = levelIndex;
-        ChangeToGameScene();
+        ToPlayStateScene();
     }
 
-    public void DisableHolder()
+    public void DisableLevelClickAndUI()
     {
         holderFilter.gameObject.SetActive(true);
         holderCG.interactable = false;
         holderCG.blocksRaycasts = false;
     }
 
-    public void EnableHolder()
+    public void EnableLevelClickAndUI()
     {
         holderFilter.gameObject.SetActive(false);
         holderCG.interactable = true;
         holderCG.blocksRaycasts = true;
     }
 
-    public void CompletedLevel()
+    public void SetCompletedLevelUI()
     {
         Image enabled = this.transform.GetChild(0).GetComponent<Image>();
         enabled.sprite = enabledLevel;
         enabled.SetNativeSize();
-
     }
 
-    public void ChangeToGameScene()
+    public void ToPlayStateScene()
     {
         StopAllCoroutines();
-        StartCoroutine(ChangeScene(GAME));
+        StartCoroutine(ChangeToAnotherScene(GAME));
     }
 
-    private IEnumerator ChangeScene(string sceneName)
+    private IEnumerator ChangeToAnotherScene(string sceneName)
     {
 
         //Optional: Add animation here

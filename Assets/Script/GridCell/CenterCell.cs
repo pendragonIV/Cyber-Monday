@@ -6,11 +6,11 @@ public class CenterCell : MonoBehaviour
 {
     private void Start()
     {
-        SetCenterCell();
+        PutObjectToCenterCell();
     }
-    public void SetCenterCell()
+    public void PutObjectToCenterCell()
     {
-        Vector3Int cellPos = GridCellManager.instance.GetObjCell(transform.position);
-        this.transform.position = GridCellManager.instance.PositonToMove(cellPos);
+        Vector3Int cellPos = GridCellManager.instance.GetCellPositionOfGivenPosition(transform.position);
+        this.transform.position = GridCellManager.instance.GetWordPositionOfGivenCellPosition(cellPos);
     }
 }
